@@ -19,3 +19,8 @@ resource "aws_db_instance" "database" {
     Name = "db-${terraform.workspace}"
   }, var.default_tags)
 }
+
+
+output "dburl" {
+  value = aws_db_instance.database.address
+}

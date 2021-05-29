@@ -17,12 +17,13 @@ data "aws_ami" "ubuntu" {
 
 
 resource "aws_instance" "lampsetup" {
+  count                       = var.az_count
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
-  subnet_id                   = aws_subnet.websubnets[0].id
+  subnet_id                   = aws_subnet.websubnets[count.index % var.az_count].id
   key_name                    = var.key_name
   vpc_security_group_ids      = [aws_security_group.websg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = var.instance_public
 
 
   root_block_device {
@@ -32,7 +33,7 @@ resource "aws_instance" "lampsetup" {
     volume_type           = "gp2"
 
     tags = merge({
-      Name = "rootVolume-${terraform.workspace}"
+      Name = "rootVolume-${count.index}-${terraform.workspace}"
     }, var.default_tags)
   }
 
@@ -41,7 +42,7 @@ resource "aws_instance" "lampsetup" {
 
 
   tags = merge({
-    Name = "Lamp-${terraform.workspace}"
+    Name = "Lamp-${count.index}-${terraform.workspace}"
   }, var.default_tags)
 }
  

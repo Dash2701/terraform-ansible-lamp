@@ -11,12 +11,23 @@ resource "aws_security_group" "websg" {
 
 
 resource "aws_security_group_rule" "lb_to_web" {
+  security_group_id        = aws_security_group.websg.id
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.lbsg.id
+}
+
+
+
+resource "aws_security_group_rule" "debuglaptop" {
   security_group_id = aws_security_group.websg.id
   type              = "ingress"
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  source_security_group_id = aws_security_group.lbsg.id
+  cidr_blocks       = ["${var.personal_laptop_ip}/32"]
 }
 
 resource "aws_security_group_rule" "ssh" {
@@ -25,7 +36,7 @@ resource "aws_security_group_rule" "ssh" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  cidr_blocks       = ["${personal_laptop_ip}/32"]
+  cidr_blocks       = ["${var.personal_laptop_ip}/32"]
 
 }
 
@@ -36,7 +47,7 @@ resource "aws_security_group_rule" "icmp" {
   from_port         = 0
   to_port           = 0
   protocol          = "icmp"
-  cidr_blocks       = ["${personal_laptop_ip}/32"]
+  cidr_blocks       = ["${var.personal_laptop_ip}/32"]
 
 }
 

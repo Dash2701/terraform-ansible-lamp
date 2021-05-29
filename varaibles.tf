@@ -42,11 +42,17 @@ variable "root_volume_size" {
 }
 
 variable "multi_az_db" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "personal_laptop_ip" {
   type = string
+  default = "182.70.99.206"
+}
+
+variable "instance_public" {
+  type = bool 
+  default = false
 }
 
