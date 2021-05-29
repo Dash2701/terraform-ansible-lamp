@@ -51,8 +51,4 @@ variable "personal_laptop_ip" {
   default = "182.70.99.206"
 }
 
-variable "instance_public" {
-  type = bool 
-  default = false
-}
 
