@@ -12,10 +12,6 @@ variable "az_count" {
   default = 2
 }
 
-/* variable "nat_count" {
-  type    = number
-  default = 1
-} */
 variable "default_tags" {
   type = map(any)
   default = {
@@ -43,7 +39,7 @@ variable "root_volume_size" {
 
 variable "multi_az_db" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "personal_laptop_ip" {
