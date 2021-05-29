@@ -2,3 +2,6 @@
 
 
 ![AWS](https://github.com/Dash2701/terraform-ansible-lamp/blob/main/architecture.jpg?raw=true "AWSLamp")
+
+
+`terraform init`
